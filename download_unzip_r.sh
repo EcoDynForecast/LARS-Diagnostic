@@ -12,7 +12,7 @@ unzip -a -u grasssummaries.zip
 unzip -a -u pinesummaries.zip
 unzip -a -u clearsummaries.zip
 
-/usr/local/bin/Rscript --vanilla /Users/quinn/Dropbox/SBC\ LARS\ Diagnostics/LARS-Diagnostic/lars_check_up.R
+/usr/local/bin/Rscript --vanilla /Users/quinn/Dropbox/SBC\ LARS\ Diagnostics/LARS-Diagnostic/lars_check_up_RQT.R
 
 rm *.zip
 
