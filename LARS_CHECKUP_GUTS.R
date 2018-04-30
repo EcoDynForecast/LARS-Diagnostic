@@ -182,8 +182,8 @@ summary_ep$x_90.[summary_ep$x_90.>200|summary_ep$x_90.<0]=NA
 summary_ep = summary_ep[,colSums(is.na(summary_ep))<nrow(summary_ep)]
 summary_ep$DOY=round(summary_ep$DOY,2)
 
-summary_ep$co2_flux[summary_ep$co2_flux>100|summary_ep$co2_flux< (-100)]=NA
-summary_ep$LWOUT_1_1_1[summary_ep$LWOUT_1_1_1>1000|summary_ep$LWOUT_1_1_1< (-1000)]=NA
+summary_ep$co2_flux[summary_ep$co2_flux>50|summary_ep$co2_flux< (-50)]=NA
+summary_ep$LWOUT_1_1_1[summary_ep$LWOUT_1_1_1>1000|summary_ep$LWOUT_1_1_1< (-10)]=NA
 ###############
 main_vars=c('H','LE','co2_flux','ALBEDO'
             ,'SWIN_1_1_1','SWOUT_1_1_1','LWIN_1_1_1','LWOUT_1_1_1'

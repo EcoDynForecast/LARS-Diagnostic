@@ -10,7 +10,7 @@ setwd('/Users/Ben/Dropbox/Checkup/')
 #https://www.dropbox.com/sh/46i9ipvay7vk4fq/AAD-1_AXVTdvp3cbwxHdjhxWa?dl=0
 
 #Where is the GUTS script?
-source('/Users/Ben/Documents/r_scripts/LARS_CHECKUP_GUTS.R')
+source('/Users/Ben/Documents/GitHub/LARS-Diagnostic/LARS_CHECKUP_GUTS.R')
 
 #Where should the plots go?
 setwd('/Users/Ben/Dropbox/Plots/')
