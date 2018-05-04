@@ -163,6 +163,12 @@ pine_ep$co2_signal_strength=pine_ep$co2_signal_strength_7200_mean
 grass_ep$co2_signal_strength=grass_ep$co2_signal_strength_7200_mean
 clear_ep$co2_signal_strength=clear_ep$co2_signal_strength_7500_mean
 
+grass_ep$NDVI=grass_ep$NDVI1_0_0_1
+grass_ep$PRI=grass_ep$PRI1_0_0_1
+
+clear_ep$NDVI=clear_ep$NDVI_1_1_1
+clear_ep$PRI=clear_ep$PRI_1_1_1
+
 ###MERGING#####
 summary_ep=merge(pine_ep,grass_ep,all = T)
 summary_ep=merge(summary_ep,clear_ep,all = T)
@@ -184,12 +190,15 @@ summary_ep$DOY=round(summary_ep$DOY,2)
 
 summary_ep$co2_flux[summary_ep$co2_flux>50|summary_ep$co2_flux< (-50)]=NA
 summary_ep$LWOUT_1_1_1[summary_ep$LWOUT_1_1_1>1000|summary_ep$LWOUT_1_1_1< (-10)]=NA
+
+summary_ep$NDVI[summary_ep$NDVI<0|summary_ep$NDVI>2]=NA
+summary_ep$PRI[summary_ep$PRI<0|summary_ep$PRI>2]=NA
 ###############
 main_vars=c('H','LE','co2_flux','ALBEDO'
-            ,'SWIN_1_1_1','SWOUT_1_1_1','LWIN_1_1_1','LWOUT_1_1_1'
+            ,'SWIN_1_1_1','SWOUT_1_1_1','LWIN_1_1_1','LWOUT_1_1_1','NDVI','PRI'
             ,'air_temperature','RH','C_RAIN'
-            ,'wind_speed','wind_dir','flowrate_mean','Flow.Drive....',"co2_signal_strength"
-            ,"x_90.",'u.',"RN_1_1_1",'SWDIF_1_1_1')
+            ,'wind_speed','flowrate_mean','Flow.Drive....','co2_signal_strength'
+            ,'u.',"RN_1_1_1",'SWDIF_1_1_1')
 dat=gather_(summary_ep,'COMP','VALUE',main_vars)
 dat=dat[order(dat$DOY),]
 
