@@ -153,9 +153,9 @@ grass_ep$PFT='GRASS'
 pine_ep$PFT='PINE'
 clear_ep$PFT='CLEAR'
 
-pine_ep$C_RAIN=as.vector(unlist(by(pine_ep$P_RAIN_1_1_1,pine_ep$date,cumsum,simplify = T)))
-grass_ep$C_RAIN=as.vector(unlist(by(grass_ep$P_RAIN_1_1_1,grass_ep$date,cumsum,simplify = T)))
-clear_ep$C_RAIN=as.vector(unlist(by(clear_ep$P_RAIN_1_1_1,clear_ep$date,cumsum,simplify = T)))
+pine_ep$C_RAIN= pine_ep$P_RAIN_1_1_1 #as.vector(unlist(by(pine_ep$P_RAIN_1_1_1,pine_ep$date,cumsum,simplify = T)))
+grass_ep$C_RAIN= grass_ep$P_RAIN_1_1_1 #as.vector(unlist(by(grass_ep$P_RAIN_1_1_1,grass_ep$date,cumsum,simplify = T)))
+clear_ep$C_RAIN= clear_ep$P_RAIN_1_1_1 #as.vector(unlist(by(clear_ep$P_RAIN_1_1_1,clear_ep$date,cumsum,simplify = T)))
 
 
 
@@ -177,6 +177,10 @@ summary_ep$SWDIF_2=summary_ep$SWIN_1_1_1 - summary_ep$SWOUT_1_1_1
 #####Filtering######
 
 summary_ep$ALBEDO[summary_ep$ALBEDO>1|summary_ep$ALBEDO<0]=NA
+#tmp_albedo = rep(NA,length(summary_ep$ALBEDO))
+#tmp_albedo[summary_ep$time=='11:00:00' | summary_ep$time=='12:00:00' | summary_ep$time=='13:00:00' | summary_ep$time=='14:00:00'] = 
+#    summary_ep$ALBEDO[summary_ep$time=='11:00:00' | summary_ep$time=='12:00:00' | summary_ep$time=='13:00:00' | summary_ep$time=='14:00:00']
+#summary_ep$ALBEDO = tmp_albedo
 summary_ep[grep('SWC',names(summary_ep))][summary_ep[grep('SWC',names(summary_ep))]<0|
                                             summary_ep[grep('SWC',names(summary_ep))]>0.7]=NA
 summary_ep[grep('SHF',names(summary_ep))][summary_ep[grep('SHF',names(summary_ep))]<(-300)|
@@ -189,6 +193,8 @@ summary_ep$DOY=round(summary_ep$DOY,2)
 
 summary_ep$co2_flux[summary_ep$co2_flux>50|summary_ep$co2_flux< (-50)]=NA
 summary_ep$LWOUT_1_1_1[summary_ep$LWOUT_1_1_1>1000|summary_ep$LWOUT_1_1_1< (-10)]=NA
+summary_ep$RN_1_1_1[summary_ep$RN_1_1_1>1000|summary_ep$RN_1_1_1< (-10)]=NA
+summary_ep$LE[summary_ep$LE< (-100)]=NA
 
 ###############
 main_vars=c('H','LE','co2_flux','ALBEDO'
