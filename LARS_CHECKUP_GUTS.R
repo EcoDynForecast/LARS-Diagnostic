@@ -163,11 +163,10 @@ pine_ep$co2_signal_strength=pine_ep$co2_signal_strength_7200_mean
 grass_ep$co2_signal_strength=grass_ep$co2_signal_strength_7200_mean
 clear_ep$co2_signal_strength=clear_ep$co2_signal_strength_7500_mean
 
-grass_ep$NDVI=grass_ep$NDVI1_0_0_1
-grass_ep$PRI=grass_ep$PRI1_0_0_1
-
-clear_ep$NDVI=clear_ep$NDVI_1_1_1
-clear_ep$PRI=clear_ep$PRI_1_1_1
+clear_ep$PRI1_0_0_1=clear_ep$Up532_1_1_1
+clear_ep$PRI2_0_0_1=clear_ep$Up570_1_1_1
+clear_ep$PRI3_0_0_1=clear_ep$Down532_1_1_1
+clear_ep$PRI4_0_0_1=clear_ep$Down570_1_1_1
 
 ###MERGING#####
 summary_ep=merge(pine_ep,grass_ep,all = T)
@@ -191,11 +190,9 @@ summary_ep$DOY=round(summary_ep$DOY,2)
 summary_ep$co2_flux[summary_ep$co2_flux>50|summary_ep$co2_flux< (-50)]=NA
 summary_ep$LWOUT_1_1_1[summary_ep$LWOUT_1_1_1>1000|summary_ep$LWOUT_1_1_1< (-10)]=NA
 
-summary_ep$NDVI[summary_ep$NDVI<0|summary_ep$NDVI>2]=NA
-summary_ep$PRI[summary_ep$PRI<0|summary_ep$PRI>2]=NA
 ###############
 main_vars=c('H','LE','co2_flux','ALBEDO'
-            ,'SWIN_1_1_1','SWOUT_1_1_1','LWIN_1_1_1','LWOUT_1_1_1','NDVI','PRI'
+            ,'SWIN_1_1_1','SWOUT_1_1_1','LWIN_1_1_1','LWOUT_1_1_1'
             ,'air_temperature','RH','C_RAIN'
             ,'wind_speed','flowrate_mean','Flow.Drive....','co2_signal_strength'
             ,'u.',"RN_1_1_1",'SWDIF_1_1_1')
@@ -246,7 +243,7 @@ dat2=dat2[order(dat2$DOY),]
 dat2$METCOMP=sapply(strsplit(dat2$COMP,'_'),'[[',1)
 dat2$SENSNUM=sapply(strsplit(dat2$COMP,'_'),'[[',2)
 ##########
-mycolors2=brewer.pal(8,"Dark2")
+mycolors2=brewer.pal(8,"Set1")
 my.settings2=list(
   superpose.symbol=list(col=mycolors2,alpha=0.8)
   ,superpose.line=list(col=mycolors2,alpha=0.8,lwd=2)
@@ -274,32 +271,42 @@ plot2=xyplot(VALUE~DOY|PFT+METCOMP
              }
 )
 #######
-# mynames=names(summary_ep)
-# exp_rem=c('PFT','DATAH.x','filename','Date','Time','DOY','file_records','used_records')
-# rem=c(exp_rem,soil_vars,main_vars)
-# othervars=mynames[! mynames %in% rem]
-# 
-# dat3=gather_(summary_ep,'COMP','VALUE',othervars)
-# dat3=dat3[order(dat3$DOY),]
-# ####
-# plot3=xyplot(VALUE~DOY|factor(COMP, levels=unique(COMP))
-#              ,data=dat3,groups=PFT,layout=c(4,5)
-#              ,scales=list(y=list(relation='free')
-#                           ,x=list(at=myat
-#                                   ,labels=mylabels
-#                                   ,alternating=3
-#                           )
-#              )
-#              ,type='l',xlab=NULL,ylab=NULL
-#              ,as.table=T
-#              ,par.settings=my.settings
-#              ,auto.key=list(points=F,lines=T,columns=2)
-#              
-#              ,panel=function(x,y,...){
-#                panel.grid(h=-1,v=0)
-#                panel.abline(h=0)
-#                panel.xyplot(x,y,...)
-#              }
-# )
-# #plot3
+summary_ep2=merge(clear_ep,grass_ep,all = T)
+index_vars=c("NDVI1_0_0_1","NDVI2_0_0_1","NDVI3_0_0_1","NDVI4_0_0_1" 
+             ,"PRI1_0_0_1","PRI2_0_0_1","PRI3_0_0_1","PRI4_0_0_1"
+)
+dat2=gather_(summary_ep2,'COMP','VALUE',index_vars)
+dat2=dat2[order(dat2$DOY),]
+dat2$METCOMP=paste0(sapply(strsplit(dat2$COMP,'I'),'[[',1),'I')
+dat2$SENSNUM=substr(sapply(strsplit(dat2$COMP,'I'),'[[',2),start = 1,stop = 1)
+
+##########
+mycolors2=brewer.pal(8,"Set1")
+my.settings2=list(
+  superpose.symbol=list(col=mycolors2,alpha=0.8)
+  ,superpose.line=list(col=mycolors2,alpha=0.8,lwd=2)
+  ,strip.background=list(col=brewer.pal(3,'Greys'))
+)
+#show.settings(my.settings2)
+#############
+plot3=xyplot(VALUE~DOY|PFT+METCOMP
+             ,data=dat2,groups=SENSNUM,layout=c(2,2)
+             ,scales=list(y=list(relation='free')
+                          ,x=list(at=myat
+                                  ,labels=mylabels
+                                  ,alternating=3
+                          )
+             )
+             ,type='l',xlab=NULL,ylab=NULL
+             ,as.table=T
+             ,par.settings=my.settings2
+             ,auto.key=list(points=F,lines=T,columns=2)
+             
+             ,panel=function(x,y,...){
+               panel.grid(h=-1,v=0)
+               panel.abline(h=0)
+               panel.xyplot(x,y,...)
+             }
+)
+plot3
 #######

@@ -21,7 +21,7 @@ pdf(paste0(Sys.Date()-5,'_to_',Sys.Date()-1,'_diagnostic.pdf')
     ,width=14,height=12)
 plot1
 plot2
-#plot3
+plot3
 dev.off()
 
 q(save='no',status=0)
