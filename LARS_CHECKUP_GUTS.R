@@ -314,5 +314,5 @@ plot3=xyplot(VALUE~DOY|PFT+METCOMP
                panel.xyplot(x,y,...)
              }
 )
-plot3
+#plot3
 #######
