@@ -153,9 +153,13 @@ grass_ep$PFT='GRASS'
 pine_ep$PFT='PINE'
 clear_ep$PFT='CLEAR'
 
-pine_ep$C_RAIN= pine_ep$P_RAIN_1_1_1 #as.vector(unlist(by(pine_ep$P_RAIN_1_1_1,pine_ep$date,cumsum,simplify = T)))
-grass_ep$C_RAIN= grass_ep$P_RAIN_1_1_1 #as.vector(unlist(by(grass_ep$P_RAIN_1_1_1,grass_ep$date,cumsum,simplify = T)))
-clear_ep$C_RAIN= clear_ep$P_RAIN_1_1_1 #as.vector(unlist(by(clear_ep$P_RAIN_1_1_1,clear_ep$date,cumsum,simplify = T)))
+pine_ep=pine_ep[order(pine_ep$DOY),]
+grass_ep=grass_ep[order(grass_ep$DOY),]
+clear_ep=clear_ep[order(clear_ep$DOY),]
+
+pine_ep$C_RAIN= as.vector(unlist(by(pine_ep$P_RAIN_1_1_1,pine_ep$date,cumsum,simplify = T)))
+grass_ep$C_RAIN= as.vector(unlist(by(grass_ep$P_RAIN_1_1_1,grass_ep$date,cumsum,simplify = T)))
+clear_ep$C_RAIN= as.vector(unlist(by(clear_ep$P_RAIN_1_1_1,clear_ep$date,cumsum,simplify = T)))
 
 
 
