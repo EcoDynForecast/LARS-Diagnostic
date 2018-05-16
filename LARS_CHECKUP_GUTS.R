@@ -172,6 +172,9 @@ clear_ep$PRI2_0_0_1=clear_ep$Up570_1_1_1
 clear_ep$PRI3_0_0_1=clear_ep$Down532_1_1_1
 clear_ep$PRI4_0_0_1=clear_ep$Down570_1_1_1
 
+grass_ep$TA_2M=grass_ep$TA_1_2_1
+clear_ep$TA_2M=clear_ep$TA_1_1_1
+
 ###MERGING#####
 summary_ep=merge(pine_ep,grass_ep,all = T)
 summary_ep=merge(summary_ep,clear_ep,all = T)
@@ -205,7 +208,7 @@ main_vars=c('H','LE','co2_flux','ALBEDO'
             ,'SWIN_1_1_1','SWOUT_1_1_1','LWIN_1_1_1','LWOUT_1_1_1'
             ,'air_temperature','RH','C_RAIN'
             ,'wind_speed','flowrate_mean','Flow.Drive....','co2_signal_strength'
-            ,'u.',"RN_1_1_1",'SWDIF_1_1_1')
+            ,'u.',"RN_1_1_1",'SWDIF_1_1_1','TA_2M')
 dat=gather_(summary_ep,'COMP','VALUE',main_vars)
 dat=dat[order(dat$DOY),]
 
