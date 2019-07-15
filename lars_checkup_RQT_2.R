@@ -11,7 +11,7 @@ execute_hr <- 6
 
 while(stop == FALSE){
   
-  setwd(“/Users/quinn/Dropbox/SBC_LARS_Diagnostics/“)
+  setwd("/Users/quinn/Dropbox/SBC_LARS_Diagnostics/")
   #setwd('/Users/Ben/Dropbox/Checkup/')
   
    setwd("/Users/quinn/Dropbox/SBC_LARS_Diagnostics/Summaries/")
